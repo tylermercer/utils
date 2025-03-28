@@ -1,8 +1,9 @@
-import { generateCacheKey, type IBufferCacheProvider } from "../cache/BufferCache";
+import type { IBufferCacheProvider } from "../cache/BufferCache";
+import { generateCacheKey } from "../cache/generateCacheKey";
 import sharp from "sharp";
 
 export default class LqipRenderer {
-    constructor(private readonly cache: IBufferCacheProvider) {}
+    constructor(private readonly cache: IBufferCacheProvider) { }
 
     private async assetToBase64Webp(file: string) {
 
@@ -13,10 +14,10 @@ export default class LqipRenderer {
                 .toBuffer())
                 .toString('base64'));
         })).toString();
-    
+
         return `data:image/webp;base64,${base64Image}`
     }
-    
+
     public async getLqipStyles(imagePath: string) {
         const webpImage = await this.assetToBase64Webp(imagePath);
         return `
